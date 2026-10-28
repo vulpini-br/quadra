@@ -9,6 +9,12 @@
   <a href="README.md">Read in English</a> · <a href="../README.pt-BR.md">Quadra para Mac</a>
 </p>
 
+<p align="center">
+  <a href="https://github.com/vulpini-br/quadra/releases/download/windows-v1.3.0/Quadra-x64.exe"><img src="../docs/images/download-windows-pt-BR.png" width="300" alt="Baixar o Quadra para Windows"></a>
+  <br>
+  <sub>Windows num PC com processador ARM (Snapdragon, Surface Pro X)? <a href="https://github.com/vulpini-br/quadra/releases/download/windows-v1.3.0/Quadra-arm64.exe">Baixe a versão ARM para Windows</a>.</sub>
+</p>
+
 O Quadra é um app da bandeja do sistema que organiza as suas janelas numa grade. Aperte
 um atalho ou clique no ícone ao lado do relógio, arraste na grade, e a janela vai para aquela área
 da tela. É a versão para Windows do [Quadra para Mac](../README.pt-BR.md), com a mesma grade, os
@@ -50,10 +56,11 @@ avisa das versões novas.
 
 **Ou baixe:**
 
-1. Baixe o Quadra na [página de versões](https://github.com/vulpini-br/quadra/releases?q=windows&expanded=true)
-   (procure **Quadra for Windows**):
-   - **Quadra-x64.exe** para a maioria dos PCs (Intel e AMD).
-   - **Quadra-arm64.exe** para PCs com processador ARM (Snapdragon, Surface Pro X).
+1. Baixe o Quadra (o botão **Baixar para Windows** lá em cima):
+   - [**Quadra-x64.exe**](https://github.com/vulpini-br/quadra/releases/download/windows-v1.3.0/Quadra-x64.exe) para a maioria dos PCs (Intel e AMD).
+   - [**Quadra-arm64.exe**](https://github.com/vulpini-br/quadra/releases/download/windows-v1.3.0/Quadra-arm64.exe) para PCs com processador ARM (Snapdragon, Surface Pro X).
+
+   As versões anteriores estão na [página de versões](https://github.com/vulpini-br/quadra/releases?q=windows&expanded=true).
 2. Abra o arquivo baixado. O Quadra ainda não tem um certificado pago, então o Windows pode mostrar
    **"O Windows protegeu o computador"**. Clique em **Mais informações** e depois em
    **Executar assim mesmo**.

@@ -10,6 +10,14 @@
 </p>
 
 <p align="center">
+  <a href="https://github.com/vulpini-br/quadra/releases/latest/download/Quadra.zip"><img src="docs/images/download-mac.png" width="300" alt="Download Quadra for Mac"></a>
+  &nbsp;
+  <a href="https://github.com/vulpini-br/quadra/releases/download/windows-v1.3.0/Quadra-x64.exe"><img src="docs/images/download-windows.png" width="300" alt="Download Quadra for Windows"></a>
+  <br>
+  <sub>Windows on a PC with an ARM processor (Snapdragon, Surface Pro X)? <a href="https://github.com/vulpini-br/quadra/releases/download/windows-v1.3.0/Quadra-arm64.exe">Download the Windows ARM version</a>.</sub>
+</p>
+
+<p align="center">
   <img src="docs/images/panel-dark.png" width="430" alt="The Quadra grid over other windows">
 </p>
 
@@ -44,8 +52,9 @@ Then follow steps 2 and 3 below. To update later: `brew upgrade --cask quadra`.
 
 **Or download it:**
 
-1. Download `Quadra.zip` from the [latest release](https://github.com/vulpini-br/quadra/releases/latest),
-   unzip it and move **Quadra.app** to **Applications**.
+1. Download [`Quadra.zip`](https://github.com/vulpini-br/quadra/releases/latest/download/Quadra.zip) (the **Download for Mac** button above), unzip it and move
+   **Quadra.app** to **Applications**. Older versions are on the
+   [releases page](https://github.com/vulpini-br/quadra/releases).
 2. Open it. Quadra is not notarized by Apple yet, so the first time macOS blocks it.
    Open **System Settings → Privacy & Security**, scroll down and click **Open Anyway**.
 3. When asked, allow **Accessibility** (System Settings → Privacy & Security → Accessibility →

@@ -9,6 +9,12 @@
   <a href="README.pt-BR.md">Leia em português</a> · <a href="../README.md">Quadra for Mac</a>
 </p>
 
+<p align="center">
+  <a href="https://github.com/vulpini-br/quadra/releases/download/windows-v1.3.0/Quadra-x64.exe"><img src="../docs/images/download-windows.png" width="300" alt="Download Quadra for Windows"></a>
+  <br>
+  <sub>Windows on a PC with an ARM processor (Snapdragon, Surface Pro X)? <a href="https://github.com/vulpini-br/quadra/releases/download/windows-v1.3.0/Quadra-arm64.exe">Download the Windows ARM version</a>.</sub>
+</p>
+
 Quadra is a tray app that arranges your windows on a grid. Press a shortcut or click
 the icon next to the clock, drag across the grid, and the window moves to that area of the
 screen. It is the Windows version of [Quadra for Mac](../README.md), with the same grid, layouts
@@ -49,10 +55,11 @@ about new versions itself.
 
 **Or download it:**
 
-1. Download Quadra from the [releases page](https://github.com/vulpini-br/quadra/releases?q=windows&expanded=true)
-   (look for **Quadra for Windows**):
-   - **Quadra-x64.exe** for most PCs (Intel and AMD).
-   - **Quadra-arm64.exe** for PCs with an ARM processor (Snapdragon, Surface Pro X).
+1. Download Quadra (the **Download for Windows** button above):
+   - [**Quadra-x64.exe**](https://github.com/vulpini-br/quadra/releases/download/windows-v1.3.0/Quadra-x64.exe) for most PCs (Intel and AMD).
+   - [**Quadra-arm64.exe**](https://github.com/vulpini-br/quadra/releases/download/windows-v1.3.0/Quadra-arm64.exe) for PCs with an ARM processor (Snapdragon, Surface Pro X).
+
+   Older versions are on the [releases page](https://github.com/vulpini-br/quadra/releases?q=windows&expanded=true).
 2. Open the downloaded file. Quadra isn't signed with a paid certificate yet, so Windows may show
    **"Windows protected your PC"**. Click **More info**, then **Run anyway**.
 3. Quadra installs itself and opens. It goes in your user folder (`%LocalAppData%\Programs\Quadra`,

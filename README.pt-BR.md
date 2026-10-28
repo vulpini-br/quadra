@@ -9,6 +9,14 @@
   <a href="README.md">Read in English</a>
 </p>
 
+<p align="center">
+  <a href="https://github.com/vulpini-br/quadra/releases/latest/download/Quadra.zip"><img src="docs/images/download-mac-pt-BR.png" width="300" alt="Baixar o Quadra para Mac"></a>
+  &nbsp;
+  <a href="https://github.com/vulpini-br/quadra/releases/download/windows-v1.3.0/Quadra-x64.exe"><img src="docs/images/download-windows-pt-BR.png" width="300" alt="Baixar o Quadra para Windows"></a>
+  <br>
+  <sub>Windows num PC com processador ARM (Snapdragon, Surface Pro X)? <a href="https://github.com/vulpini-br/quadra/releases/download/windows-v1.3.0/Quadra-arm64.exe">Baixe a versão ARM para Windows</a>.</sub>
+</p>
+
 O Quadra é um app de barra de menus que organiza as suas janelas numa grade. Aperte um
 atalho ou clique no ícone, arraste na grade, e a janela vai para aquela área da tela.
 
@@ -40,8 +48,9 @@ Depois siga os passos 2 e 3 abaixo. Para atualizar no futuro: `brew upgrade --ca
 
 **Ou baixe direto:**
 
-1. Baixe o `Quadra.zip` na [versão mais recente](https://github.com/vulpini-br/quadra/releases/latest),
-   descompacte e mova o **Quadra.app** para **Aplicativos**.
+1. Baixe o [`Quadra.zip`](https://github.com/vulpini-br/quadra/releases/latest/download/Quadra.zip) (o botão **Baixar para Mac** lá em cima), descompacte e mova o
+   **Quadra.app** para **Aplicativos**. As versões anteriores estão na
+   [página de versões](https://github.com/vulpini-br/quadra/releases).
 2. Abra o app. O Quadra ainda não tem a verificação da Apple, então na primeira vez o macOS bloqueia.
    Abra **Ajustes do Sistema → Privacidade e Segurança**, role até o fim e clique em **Abrir Mesmo Assim**.
 3. Quando pedir, permita a **Acessibilidade** (Ajustes do Sistema → Privacidade e Segurança →
