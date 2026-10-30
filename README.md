@@ -48,17 +48,17 @@ click the icon, drag across the grid, and the window moves to that area of the s
 brew install --cask vulpini-br/tap/quadra
 ```
 
-Then follow steps 2 and 3 below. To update later: `brew upgrade --cask quadra`.
+Then follow step 2 below. To update later: `brew upgrade --cask quadra`.
 
 **Or download it:**
 
 1. Download [`Quadra.zip`](https://github.com/vulpini-br/quadra/releases/latest/download/Quadra.zip) (the **Download for Mac** button above), unzip it and move
    **Quadra.app** to **Applications**. Older versions are on the
    [releases page](https://github.com/vulpini-br/quadra/releases).
-2. Open it. Quadra is not notarized by Apple yet, so the first time macOS blocks it.
-   Open **System Settings → Privacy & Security**, scroll down and click **Open Anyway**.
-3. When asked, allow **Accessibility** (System Settings → Privacy & Security → Accessibility →
-   turn on Quadra). Quadra needs it to move other apps' windows.
+2. Open it and allow **Accessibility** when asked: the welcome window opens the right place in
+   System Settings, where you turn Quadra on. Quadra needs it to move other apps' windows.
+
+Quadra is signed with an Apple Developer ID and notarized by Apple, so macOS opens it right away.
 
 Requires macOS 14 Sonoma or later, on Apple silicon or Intel.
 
@@ -67,8 +67,9 @@ Requires macOS 14 Sonoma or later, on Apple silicon or Intel.
 Once a day Quadra asks GitHub whether a new version is out, and tells you when there is one
 (you can turn this off in Settings). It's the only time Quadra uses the internet.
 
-From version 1.1.0 on, macOS keeps the Accessibility permission when Quadra updates. Coming from
-1.0.x, remove Quadra from the Accessibility list with **–** and add it again with **+** once.
+macOS keeps the Accessibility permission when Quadra updates. Version 1.3.1 changed how Quadra is
+signed, so coming from 1.3.0 or earlier, allow it once more: remove Quadra from the Accessibility
+list with **–** and add it again with **+** (or follow the welcome window).
 
 ## Use
 
@@ -128,8 +129,8 @@ See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Support Quadra
 
-Quadra is free. If it helps you, you can support it. The first goal is to pay for Apple's
-Developer ID (US$ 99 per year), so macOS stops blocking the download.
+Quadra is free. If it helps you, you can support it. Support pays for the Apple developer
+account (US$ 99 per year) that keeps Quadra signed and notarized, and for its development.
 
 **Pix** (Brazil), to Vulpini Contabilidade: scan the code with your bank app, or use the key
 `contato@vulpini.com.br`.

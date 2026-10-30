@@ -23,15 +23,14 @@ With Homebrew:
 brew install --cask vulpini-br/tap/quadra
 ```
 
-Or download **Quadra.zip** below, unzip it and move **Quadra.app** to **Applications**.
-The first time, open **System Settings → Privacy & Security** and click **Open Anyway**,
-then allow **Accessibility** when Quadra asks. Requires macOS 14 or later.
+Or download **Quadra.zip** below, unzip it, move **Quadra.app** to **Applications** and open it.
+Allow **Accessibility** when Quadra asks. Signed and notarized by Apple. Requires macOS 14 or later.
 
 Already have Quadra? It tells you about new versions; with Homebrew, run `brew upgrade --cask quadra`.
 
 ---
 
 **Em português:** instale com `brew install --cask vulpini-br/tap/quadra` ou baixe o **Quadra.zip**,
-mova o app para **Aplicativos** e, na primeira vez, clique em **Abrir Mesmo Assim** em
-Ajustes do Sistema → Privacidade e Segurança. Depois permita a **Acessibilidade**.
+mova o app para **Aplicativos** e abra. Depois permita a **Acessibilidade** quando o Quadra pedir.
+Assinado e verificado pela Apple.
 EOF

@@ -44,17 +44,20 @@ atalho ou clique no ícone, arraste na grade, e a janela vai para aquela área d
 brew install --cask vulpini-br/tap/quadra
 ```
 
-Depois siga os passos 2 e 3 abaixo. Para atualizar no futuro: `brew upgrade --cask quadra`.
+Depois siga o passo 2 abaixo. Para atualizar no futuro: `brew upgrade --cask quadra`.
 
 **Ou baixe direto:**
 
 1. Baixe o [`Quadra.zip`](https://github.com/vulpini-br/quadra/releases/latest/download/Quadra.zip) (o botão **Baixar para Mac** lá em cima), descompacte e mova o
    **Quadra.app** para **Aplicativos**. As versões anteriores estão na
    [página de versões](https://github.com/vulpini-br/quadra/releases).
-2. Abra o app. O Quadra ainda não tem a verificação da Apple, então na primeira vez o macOS bloqueia.
-   Abra **Ajustes do Sistema → Privacidade e Segurança**, role até o fim e clique em **Abrir Mesmo Assim**.
-3. Quando pedir, permita a **Acessibilidade** (Ajustes do Sistema → Privacidade e Segurança →
-   Acessibilidade → ligue o Quadra). O Quadra precisa disso para mover as janelas dos outros apps.
+2. Abra o app e permita a **Acessibilidade** quando ele pedir: a janela de boas-vindas abre o lugar
+   certo nos Ajustes do Sistema, onde você liga o Quadra. Nas versões mais novas do macOS, essa
+   lista se chama **Controle do Dispositivo e Acesso a Dados**. O Quadra precisa disso para mover
+   as janelas dos outros apps.
+
+O Quadra é assinado com um Developer ID da Apple e verificado (notarizado) pela Apple, então o macOS
+abre o app direto, sem bloquear.
 
 Precisa do macOS 14 Sonoma ou mais novo, em Mac com Apple Silicon ou Intel.
 
@@ -63,9 +66,9 @@ Precisa do macOS 14 Sonoma ou mais novo, em Mac com Apple Silicon ou Intel.
 Uma vez por dia o Quadra pergunta ao GitHub se saiu uma versão nova e te avisa quando houver
 (dá para desligar nos Ajustes). É a única vez que o Quadra usa a internet.
 
-A partir da versão 1.1.0, o macOS mantém a permissão de Acessibilidade quando o Quadra atualiza.
-Vindo da 1.0.x, remova o Quadra da lista de Acessibilidade com **–** e adicione de novo com **+**
-uma vez.
+O macOS mantém a permissão de Acessibilidade quando o Quadra atualiza. A versão 1.3.1 mudou a
+assinatura do Quadra, então, vindo da 1.3.0 ou anterior, libere uma vez mais: remova o Quadra da
+lista com **–** e adicione de novo com **+** (ou siga a janela de boas-vindas).
 
 ## Como usar
 
@@ -112,8 +115,9 @@ Veja o [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Apoie o Quadra
 
-O Quadra é grátis. Se ele te ajuda, você pode apoiar o projeto com qualquer valor. A primeira
-meta é pagar o Developer ID da Apple (US$ 99 por ano), para o macOS parar de bloquear o download.
+O Quadra é grátis. Se ele te ajuda, você pode apoiar o projeto com qualquer valor. O apoio paga a
+conta de desenvolvedor da Apple (US$ 99 por ano), que mantém o Quadra assinado e verificado, e o
+desenvolvimento.
 
 **Pix**, para a Vulpini Contabilidade: aponte a câmera do app do banco para o QR code, ou use a chave
 `contato@vulpini.com.br`.

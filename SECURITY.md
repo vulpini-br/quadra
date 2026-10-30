@@ -10,8 +10,8 @@ Mac is sent. You can turn it off in Settings. Quadra for Windows does the same w
 releases (`api.github.com/repos/vulpini-br/quadra/releases`), where it looks for the newest
 Windows release, and needs no special permission to move windows.
 
-Releases are signed with the project's own certificate ("Quadra Open Source"), so macOS keeps
-the Accessibility permission across updates. They are not notarized by Apple yet.
+Releases are signed with an Apple Developer ID (team AE7E7GAZLV) and notarized by Apple, so
+macOS opens them without warnings and keeps the Accessibility permission across updates.
 
 If you find a security problem, please report it privately: open the **Security** tab of this
 repository and click **Report a vulnerability**. Please don't open a public issue for it.

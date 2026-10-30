@@ -2,13 +2,14 @@ name: Release
 
 # Pushing a tag such as v1.2.0:
 #   1. runs the tests,
-#   2. builds Quadra.zip signed with the project's certificate ("Quadra Open Source"),
+#   2. builds Quadra.zip signed with the Developer ID certificate and notarized by Apple,
 #   3. publishes it as a GitHub release, with notes from CHANGELOG.md,
 #   4. updates the Homebrew cask in vulpini-br/homebrew-tap.
 # Running it by hand ("Run workflow") is a rehearsal: steps 1 and 2 only, nothing is published.
 #
-# Secrets: QUADRA_CERT_P12 (base64 of the .p12), QUADRA_CERT_PASSWORD, TAP_DEPLOY_KEY
-# (SSH key with write access to the tap).
+# Secrets: QUADRA_DEVID_P12 (base64 of the Developer ID Application .p12), QUADRA_DEVID_PASSWORD,
+# QUADRA_NOTARY_APPLE_ID and QUADRA_NOTARY_PASSWORD (an app-specific password of that Apple
+# Account, for notarization), TAP_DEPLOY_KEY (SSH key with write access to the tap).
 on:
   push:
     tags: ["v*"]
@@ -28,8 +29,8 @@ jobs:
 
       - name: Load the signing certificate
         env:
-          CERT_P12: ${{ secrets.QUADRA_CERT_P12 }}
-          CERT_PASSWORD: ${{ secrets.QUADRA_CERT_PASSWORD }}
+          CERT_P12: ${{ secrets.QUADRA_DEVID_P12 }}
+          CERT_PASSWORD: ${{ secrets.QUADRA_DEVID_PASSWORD }}
         run: |
           KEYCHAIN="$RUNNER_TEMP/quadra-signing.keychain-db"
           KEYCHAIN_PASSWORD="$(uuidgen)"
@@ -38,24 +39,31 @@ jobs:
           security set-keychain-settings -lut 3600 "$KEYCHAIN"
           security unlock-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN"
           security import "$RUNNER_TEMP/quadra.p12" -k "$KEYCHAIN" -P "$CERT_PASSWORD" -T /usr/bin/codesign
+          # Apple's intermediate certificate for Developer ID, in case the runner lacks it.
+          curl -fsSL https://www.apple.com/certificateauthority/DeveloperIDG2CA.cer -o "$RUNNER_TEMP/DeveloperIDG2CA.cer"
+          security import "$RUNNER_TEMP/DeveloperIDG2CA.cer" -k "$KEYCHAIN" || true
           security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "$KEYCHAIN_PASSWORD" "$KEYCHAIN" > /dev/null
           security list-keychains -d user -s "$KEYCHAIN" $(security list-keychains -d user | tr -d '"')
           rm "$RUNNER_TEMP/quadra.p12"
-          # The certificate is self-signed, so it is looked up by its fingerprint.
-          HASH="$(security find-identity -p codesigning "$KEYCHAIN" | awk '/Quadra Open Source/ { print $2; exit }')"
-          test -n "$HASH"
-          echo "QUADRA_SIGN_IDENTITY=$HASH" >> "$GITHUB_ENV"
+          IDENTITY="$(security find-identity -v -p codesigning "$KEYCHAIN" | awk -F'"' '/Developer ID Application/ { print $2; exit }')"
+          test -n "$IDENTITY"
+          echo "QUADRA_SIGN_IDENTITY=$IDENTITY" >> "$GITHUB_ENV"
           echo "QUADRA_SIGN_KEYCHAIN=$KEYCHAIN" >> "$GITHUB_ENV"
-          echo "QUADRA_SIGN_NAME=Quadra Open Source" >> "$GITHUB_ENV"
 
-      - name: Build Quadra.zip
+      - name: Build, sign and notarize Quadra.zip
+        env:
+          QUADRA_NOTARY_APPLE_ID: ${{ secrets.QUADRA_NOTARY_APPLE_ID }}
+          QUADRA_NOTARY_PASSWORD: ${{ secrets.QUADRA_NOTARY_PASSWORD }}
+          QUADRA_NOTARY_TEAM: AE7E7GAZLV
         run: ./build.sh --zip
 
-      - name: Check the signature
+      - name: Check the signature and Apple's ticket
         run: |
           codesign --verify --strict --verbose=2 build/Quadra.app
-          codesign -dv build/Quadra.app 2>&1 | grep -E "^(Identifier|Authority)="
+          codesign -dv build/Quadra.app 2>&1 | grep -E "^(Identifier|Authority|TeamIdentifier)="
           codesign -d -r- build/Quadra.app 2>&1 | grep designated
+          xcrun stapler validate build/Quadra.app
+          spctl --assess --type execute --verbose=2 build/Quadra.app
 
       - name: Keep the rehearsal build
         if: github.event_name == 'workflow_dispatch'

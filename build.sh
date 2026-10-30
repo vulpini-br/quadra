@@ -11,9 +11,14 @@
 # there macOS writes a hidden "._" file next to every file the compiler creates, which breaks
 # the build, so everything is built in ~/Library/Caches/Quadra instead. The code stays put.
 #
-# Signing: uses the first "Developer ID Application" or "Apple Development" certificate
-# found in the keychain, or QUADRA_SIGN_IDENTITY if set. Without one, the app is signed
-# locally ("ad hoc"), and macOS asks for the Accessibility permission again after every build.
+# Signing: uses the "Developer ID Application" certificate in the keychain (or, without one,
+# "Apple Development"), or QUADRA_SIGN_IDENTITY if set. Without any, the app is signed locally
+# ("ad hoc"), and macOS asks for the Accessibility permission again after every build.
+#
+# Notarization: with --zip and a Developer ID certificate, Quadra.zip is sent to Apple when the
+# credentials are set, either a keychain profile made with `xcrun notarytool store-credentials`
+# (QUADRA_NOTARY_PROFILE) or QUADRA_NOTARY_APPLE_ID, QUADRA_NOTARY_PASSWORD (an app-specific
+# password) and QUADRA_NOTARY_TEAM, as in the release workflow.
 set -euo pipefail
 cd "$(dirname "$0")"
 MODE="${1:-}"
@@ -103,9 +108,18 @@ if [[ "$MODE" == "--appstore" ]]; then
   exit
 fi
 
-IDENTITY="${QUADRA_SIGN_IDENTITY:-$(security find-identity -v -p codesigning 2>/dev/null \
-  | awk -F'"' '/Developer ID Application|Apple Development/ { print $2; exit }')}"
-SIGN=(--force --timestamp=none --sign "${IDENTITY:--}")
+find_identity() {
+  security find-identity -v -p codesigning 2>/dev/null | awk -F'"' -v kind="$1" 'index($0, kind) { print $2; exit }'
+}
+IDENTITY="${QUADRA_SIGN_IDENTITY:-$(find_identity "Developer ID Application")}"
+[[ -n "$IDENTITY" ]] || IDENTITY="$(find_identity "Apple Development")"
+SIGN=(--force --sign "${IDENTITY:--}")
+if [[ "${QUADRA_SIGN_NAME:-$IDENTITY}" == "Developer ID Application"* ]]; then
+  # What Apple's notarization requires: the hardened runtime and a secure timestamp.
+  SIGN+=(--options runtime --timestamp)
+else
+  SIGN+=(--timestamp=none)
+fi
 # The release workflow keeps its certificate in a keychain of its own.
 [[ -n "${QUADRA_SIGN_KEYCHAIN:-}" ]] && SIGN+=(--keychain "$QUADRA_SIGN_KEYCHAIN")
 codesign "${SIGN[@]}" "$APP"
@@ -124,6 +138,30 @@ case "$MODE" in
   --zip)
     rm -f "$OUT/Quadra.zip"
     ditto -c -k --keepParent "$APP" "$OUT/Quadra.zip"
+    NOTARY=()
+    if [[ -n "${QUADRA_NOTARY_PROFILE:-}" ]]; then
+      NOTARY=(--keychain-profile "$QUADRA_NOTARY_PROFILE")
+    elif [[ -n "${QUADRA_NOTARY_APPLE_ID:-}" ]]; then
+      NOTARY=(--apple-id "$QUADRA_NOTARY_APPLE_ID" --password "${QUADRA_NOTARY_PASSWORD:?}"
+              --team-id "${QUADRA_NOTARY_TEAM:?}")
+    fi
+    if (( ${#NOTARY[@]} )); then
+      echo "Sending Quadra.zip to Apple for notarization (it takes a few minutes)..."
+      RESULT="$(xcrun notarytool submit "$OUT/Quadra.zip" "${NOTARY[@]}" --wait --timeout 30m --output-format json)"
+      STATUS="$(plutil -extract status raw - <<< "$RESULT" 2>/dev/null || true)"
+      if [[ "$STATUS" != "Accepted" ]]; then
+        echo "Apple did not accept Quadra.zip: $RESULT" >&2
+        ID="$(plutil -extract id raw - <<< "$RESULT" 2>/dev/null || true)"
+        [[ -n "$ID" ]] && xcrun notarytool log "$ID" "${NOTARY[@]}" >&2
+        exit 1
+      fi
+      # Attach Apple's ticket to the app, so it opens even offline, and zip it again.
+      xcrun stapler staple "$APP"
+      rm -f "$OUT/Quadra.zip"
+      ditto -c -k --keepParent "$APP" "$OUT/Quadra.zip"
+      spctl --assess --type execute --verbose=2 "$APP"
+      echo "Notarized by Apple."
+    fi
     echo "Created $OUT/Quadra.zip"
     ;;
 esac

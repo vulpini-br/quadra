@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.3.1
+
+- Quadra is now signed with an Apple Developer ID and notarized by Apple: macOS opens it right
+  away, without the "Open Anyway" step.
+- Because the signature changed, coming from 1.3.0 or earlier, allow Quadra in Accessibility one
+  more time: remove it from the list with – and add it again with + (the welcome window helps).
+- Download buttons for Mac and Windows at the top of the README.
+
 ## 1.3.0
 
 - **Workspaces**: save where the windows of several apps are and put them all back with one
