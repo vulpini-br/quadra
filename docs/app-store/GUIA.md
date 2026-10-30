@@ -1,5 +1,12 @@
 # Como publicar o Quadra na Mac App Store
 
+> **Atenção (30/10/2026): a versão da App Store não funciona.** Todo app novo na Mac App Store precisa
+> rodar no sandbox, e a Apple não permite que apps no sandbox usem a Acessibilidade para ler e mover
+> as janelas de outros apps, nem com a permissão ligada à mão. Testado ao vivo: o Quadra da loja não
+> enxerga nenhuma janela, e o clique no ícone só abre o menu. (Os organizadores de janelas que estão
+> na loja entraram antes dessa regra.) Por isso o Quadra continua sendo distribuído pelo GitHub e pelo
+> Homebrew. O guia abaixo fica como registro, caso a Apple mude a regra.
+
 O código já está pronto para a App Store. `./build.sh --appstore` gera uma versão própria:
 
 - roda no **sandbox**, o modo isolado que a Apple exige;
