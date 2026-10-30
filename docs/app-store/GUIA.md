@@ -65,11 +65,31 @@ Em [appstoreconnect.apple.com](https://appstoreconnect.apple.com) → **Apps** �
 - **Imagens:** envie as de `screenshots/` em cada idioma, na ordem 1, 2, 3, 4. Para gerar de novo:
   `./Tools/make-store-screenshots.sh`. Capturas reais do app em uso também são bem-vindas.
 - **Privacidade do app:** "Dados não coletados". **URL da política:** a de `textos-en.md`.
-- **Categoria:** Produtividade. **Preço:** Grátis. **Classificação etária:** responda "não" a
-  tudo, o que dá 4+.
+- **Categoria:** Produtividade. **Classificação etária:** responda "não" a tudo, o que dá 4+.
+- **Preço:** em **Preços e disponibilidade**, escolha **US$ 0,99**. A Apple calcula sozinha o
+  preço em reais e nas outras moedas (dá para escolher o Brasil como país base, se preferir
+  definir o preço em reais). Disponível em todos os países.
 
 Regras da Apple a lembrar: os textos e as palavras-chave da loja **não podem citar outros apps ou
 marcas**, e o app não pode mandar baixar versões de fora da loja.
+
+## 6b. Vender: contrato, impostos e banco
+
+Um app pago só aparece na loja depois que a Vulpini tiver, no App Store Connect →
+**Negócios** (Business):
+
+1. o **Contrato de apps pagos** (Paid Apps Agreement) aceito pelo titular da conta;
+2. a **conta bancária** da Vulpini (pessoa jurídica) cadastrada, para receber os pagamentos;
+3. os **formulários de impostos**: o dos Estados Unidos para empresa estrangeira (W-8BEN-E,
+   preenchido na própria página) e o que mais a Apple pedir para o Brasil.
+
+Depois disso, inscreva a Vulpini no [App Store Small Business Program](https://developer.apple.com/app-store/small-business-program/):
+para quem fatura menos de 1 milhão de dólares por ano na loja, a comissão da Apple cai de 30% para
+**15%**. A Apple paga uma vez por mês, depois de descontar a comissão e os impostos de cada país.
+
+A versão do GitHub e do Homebrew continua grátis e de código aberto (licença MIT). Isso é
+permitido: quem compra na App Store paga pela comodidade (instalação e atualização pela loja) e
+apoia o projeto. Só não cite na loja que existe uma versão grátis fora dela.
 
 ## 7. Gerar o pacote
 

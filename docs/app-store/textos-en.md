@@ -43,7 +43,7 @@ YOUR WAY
 PRIVATE
 Quadra collects no data and makes no network requests. To move windows it needs the Accessibility permission, which you turn on once in System Settings; it only reads the position, size and title of the windows it arranges. Layouts and workspaces are saved on your Mac.
 
-Quadra is free and open source.
+Quadra is open source, made by Vulpini. Buying it here supports its development.
 
 **Support URL**
 https://github.com/vulpini-br/quadra/issues

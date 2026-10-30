@@ -43,7 +43,7 @@ DO SEU JEITO
 PRIVADO
 O Quadra não coleta nenhum dado e não acessa a internet. Para mover as janelas, ele precisa da permissão de Acessibilidade, que você liga uma vez nos Ajustes do Sistema; ele só lê a posição, o tamanho e o título das janelas que organiza. Layouts e espaços de trabalho ficam salvos no seu Mac.
 
-O Quadra é grátis e de código aberto.
+O Quadra é de código aberto e feito pela Vulpini. Comprando aqui, você apoia o desenvolvimento dele.
 
 **URL de suporte**
 https://github.com/vulpini-br/quadra/issues
