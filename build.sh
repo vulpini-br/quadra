@@ -77,7 +77,15 @@ if [[ "$MODE" == "--appstore" ]]; then
     echo "Couldn't sign the Quadra shortcut: this needs the internet and iCloud signed in on this Mac." >&2
     exit 1
   fi
-  chmod 644 "$APP/Contents/Resources/Quadra.shortcut"
+  # Files copied from a drive without Unix permissions (such as exFAT) come out readable only by
+  # their owner, and App Store Connect refuses a package with files other users can't read
+  # (error 90255). So every folder and file gets ordinary permissions, and no extended attributes.
+  fix_permissions() {
+    xattr -cr "$APP" 2>/dev/null || true
+    find "$APP" -type d -exec chmod 755 {} +
+    find "$APP" -type f -exec chmod 644 {} +
+    chmod 755 "$APP/Contents/MacOS/Quadra"
+  }
 
   DIST_ID="${QUADRA_APPSTORE_IDENTITY:-$(security find-identity -v -p codesigning 2>/dev/null \
     | awk -F'"' '/Apple Distribution|3rd Party Mac Developer Application/ { print $2; exit }')}"
@@ -101,6 +109,7 @@ if [[ "$MODE" == "--appstore" ]]; then
     cp "$PROFILE" "$APP/Contents/embedded.provisionprofile"
     /usr/libexec/PlistBuddy -c "Add :com.apple.application-identifier string $APP_IDENTIFIER" "$ENTITLEMENTS"
     /usr/libexec/PlistBuddy -c "Add :com.apple.developer.team-identifier string $TEAM" "$ENTITLEMENTS"
+    fix_permissions
     codesign --force --sign "$DIST_ID" --entitlements "$ENTITLEMENTS" "$APP"
     productbuild --component "$APP" /Applications --sign "$INSTALLER_ID" "$OUT/Quadra.pkg"
     echo "Built $OUT/Quadra.pkg for the App Store (signed with: $DIST_ID)."
@@ -109,6 +118,7 @@ if [[ "$MODE" == "--appstore" ]]; then
     # Without the Apple account's certificates: a sandboxed test build to try on this Mac.
     IDENTITY="$(security find-identity -v -p codesigning 2>/dev/null \
       | awk -F'"' '/Apple Development/ { print $2; exit }')"
+    fix_permissions
     codesign --force --timestamp=none --sign "${IDENTITY:--}" --entitlements "$ENTITLEMENTS" "$APP"
     echo "Built $APP: a sandboxed TEST build of the App Store version ($STORE_ID)."
     echo "It can't be uploaded yet: that needs the Apple Distribution and Mac Installer Distribution"
