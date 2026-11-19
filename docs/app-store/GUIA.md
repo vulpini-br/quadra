@@ -73,7 +73,10 @@ Em [appstoreconnect.apple.com](https://appstoreconnect.apple.com) → **Apps** �
   `./Tools/make-store-screenshots.sh`. Capturas reais do app em uso também são bem-vindas.
 - **Privacidade do app:** "Dados não coletados". **URL da política:** a de `textos-en.md`.
 - **Categoria:** Produtividade. **Classificação etária:** responda "não" a tudo, o que dá 4+.
-- **Preço:** **Grátis**, em todos os países.
+- **Preço:** **Grátis**. **Disponibilidade:** todos os países **menos a China continental**, que
+  exige de apps novos um relatório de avaliação de segurança do governo chinês.
+- **Política de privacidade:** o link precisa estar preenchido **em cada idioma** (inglês e português),
+  senão a Apple não deixa enviar para revisão.
 - **Comerciante na União Europeia (DSA):** um app grátis de pessoa física pode ser declarado como
   **não comerciante**; aí a loja não mostra endereço nem telefone.
 
@@ -93,19 +96,38 @@ teste e diz o que falta.
 
 ## 8. Enviar à Apple
 
-Instale o app **Transporter** (grátis, na Mac App Store), entre com a conta da Vulpini, arraste o
-`Quadra.pkg` e clique em **Entregar**. O pacote aparece no App Store Connect depois de alguns minutos.
+Pelo Terminal, com uma **senha de app** da Conta Apple (account.apple.com → Entrar e segurança →
+Senhas de app). Nos comandos, troque `EMAIL_DA_CONTA_APPLE` pelo e-mail da conta. Guarde a senha no
+Chaves uma vez:
+
+```bash
+read -rs "PW?Senha de app: " && echo && xcrun altool --store-password-in-keychain-item --item quadra-upload -u EMAIL_DA_CONTA_APPLE -p "$PW"; unset PW
+```
+
+E envie:
+
+```bash
+QUADRA_UPLOAD_PW="$(security find-generic-password -l quadra-upload -w)" xcrun altool --upload-app -f ~/Library/Caches/Quadra/AppStore/Quadra.pkg -t macos -u EMAIL_DA_CONTA_APPLE -p @env:QUADRA_UPLOAD_PW
+```
+
+(O `-p @keychain:quadra-upload` do próprio altool não acha o item que ele mesmo guardou; por isso a
+senha vai por variável de ambiente.) O build aparece no App Store Connect depois de alguns minutos.
+Para ver se a Apple terminou de processar: `xcrun altool --build-status --delivery-id <id do envio>
+--provider-public-id c7f3cbd2-e0f4-449e-a4b2-de2fca5cd701` com o mesmo `-u` e `-p`.
+
+O app **Transporter** (grátis, na Mac App Store) também serve: entre com a conta, arraste o
+`Quadra.pkg` e clique em **Entregar**.
 
 ## 9. Enviar para revisão
 
 Na página da versão, escolha o build enviado, cole as **notas para a revisão** de `textos-en.md`
-(explicam por que o app precisa de Acessibilidade e como testar) e clique em
+(explicam o Atalho do Quadra e como testar) e clique em
 **Enviar para revisão**. A resposta costuma vir em um a três dias.
 
 ## Novas versões
 
 Atualize `CFBundleShortVersionString` e `CFBundleVersion` em `App/Info.plist` (o `CFBundleVersion`
-sempre precisa subir), rode `./build.sh --appstore`, envie pelo Transporter e crie a versão nova
+sempre precisa subir), rode `./build.sh --appstore`, envie como no passo 8 e crie a versão nova
 no App Store Connect.
 
 ## Testar a versão em sandbox antes de enviar
