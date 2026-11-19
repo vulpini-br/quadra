@@ -69,6 +69,15 @@ if [[ "$MODE" == "--appstore" ]]; then
   PLIST="$APP/Contents/Info.plist"
   /usr/libexec/PlistBuddy -c "Set :CFBundleIdentifier $STORE_ID" "$PLIST"
   /usr/libexec/PlistBuddy -c "Add :ITSAppUsesNonExemptEncryption bool false" "$PLIST"
+  # This version moves windows through the "Quadra" shortcut, run via Shortcuts Events.
+  /usr/libexec/PlistBuddy -c "Add :NSAppleEventsUsageDescription string 'Quadra uses the Shortcuts app to move and resize windows.'" "$PLIST"
+  python3 Tools/make-shortcut.py "$OUT/Quadra-unsigned.shortcut"
+  if ! shortcuts sign --mode anyone --input "$OUT/Quadra-unsigned.shortcut" \
+      --output "$APP/Contents/Resources/Quadra.shortcut" 2>/dev/null; then
+    echo "Couldn't sign the Quadra shortcut: this needs the internet and iCloud signed in on this Mac." >&2
+    exit 1
+  fi
+  chmod 644 "$APP/Contents/Resources/Quadra.shortcut"
 
   DIST_ID="${QUADRA_APPSTORE_IDENTITY:-$(security find-identity -v -p codesigning 2>/dev/null \
     | awk -F'"' '/Apple Distribution|3rd Party Mac Developer Application/ { print $2; exit }')}"

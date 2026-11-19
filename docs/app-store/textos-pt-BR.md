@@ -29,7 +29,7 @@ LAYOUTS COM ATALHO PRÓPRIO
 
 ESPAÇOS DE TRABALHO
 • Salve onde ficam as janelas de vários apps e ponha todas de volta com um atalho.
-• Os apps e documentos fechados são abertos para você, e as janelas minimizadas voltam.
+• Os apps fechados são abertos para você, e a janela de cada app volta para o lugar.
 
 VÁRIOS MONITORES E ULTRAWIDE
 • Escolha a tela no painel, ou mande a janela para a próxima tela com um atalho.
@@ -40,10 +40,13 @@ DO SEU JEITO
 • Abre junto com o Mac e fica na barra de menus.
 • Em português e inglês.
 
-PRIVADO
-O Quadra não coleta nenhum dado e não acessa a internet. Para mover as janelas, ele precisa da permissão de Acessibilidade, que você liga uma vez nos Ajustes do Sistema; ele só lê a posição, o tamanho e o título das janelas que organiza. Layouts e espaços de trabalho ficam salvos no seu Mac.
+COMO ELE MOVE AS JANELAS
+O macOS não deixa apps da App Store moverem as janelas dos outros diretamente, então o Quadra faz isso com o app Atalhos da Apple. Na primeira vez, adicione o Atalho do Quadra com um clique e permita que o Quadra use o Atalhos. A janela de boas-vindas guia você.
 
-O Quadra é de código aberto e feito pela Vulpini. Comprando aqui, você apoia o desenvolvimento dele.
+PRIVADO
+O Quadra não coleta nenhum dado e não acessa a internet. Ele lê onde estão as janelas pela lista de janelas do macOS e envia só a posição e o tamanho da janela a mover para o Atalho do Quadra, que roda no seu Mac. Layouts e espaços de trabalho ficam salvos no seu Mac.
+
+O Quadra é grátis, de código aberto e feito pela Vulpini.
 
 **URL de suporte**
 https://github.com/vulpini-br/quadra/issues

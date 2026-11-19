@@ -346,11 +346,19 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         menu.addItem(submenu(String(localized: "Window Spacing"), gaps))
         menu.addItem(.separator())
 
+        #if APP_STORE
+        if WindowMover.isTrusted() {
+            menu.addItem(info(String(localized: "✓ Quadra shortcut ready")))
+        } else {
+            menu.addItem(item(String(localized: "Set Up the Quadra Shortcut…"), #selector(showWelcome)))
+        }
+        #else
         if WindowMover.isTrusted() {
             menu.addItem(info(String(localized: "✓ Accessibility allowed")))
         } else {
             menu.addItem(item(String(localized: "Allow Accessibility…"), #selector(showWelcome)))
         }
+        #endif
         let login = item(String(localized: "Open at Login"), #selector(toggleLaunchAtLogin))
         login.state = SMAppService.mainApp.status == .enabled ? .on : .off
         menu.addItem(login)
@@ -422,6 +430,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     @objc private func setGap(_ sender: NSMenuItem) { Settings.gap = sender.tag }
 
     @objc private func openAccessibilitySettings() {
+        #if APP_STORE
+        ShortcutsBridge.installShortcut()
+        return
+        #endif
         _ = WindowMover.isTrusted(prompt: true)
         let url = URL(string: "x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility")!
         NSWorkspace.shared.open(url)

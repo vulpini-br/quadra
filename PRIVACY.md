@@ -1,6 +1,6 @@
 # Privacy policy
 
-*Last updated: October 22, 2026 · [Português abaixo](#política-de-privacidade)*
+*Last updated: November 19, 2026 · [Português abaixo](#política-de-privacidade)*
 
 Quadra does not collect, store or share any personal data.
 
@@ -18,6 +18,12 @@ Quadra does not collect, store or share any personal data.
   computer is sent, and you can turn this off in Settings. GitHub's own
   [privacy statement](https://docs.github.com/site-policy/privacy-policies/github-general-privacy-statement)
   applies to that request.
+- **Mac App Store version:** macOS doesn't let App Store apps move other apps' windows
+  directly, so this version reads where windows are from the macOS window list (positions and
+  sizes, not titles or contents) and moves them through the "Quadra" shortcut in Apple's
+  Shortcuts app. The shortcut runs on your Mac and receives only the app name and the position
+  and size of the window to move. Its workspaces keep the apps and window positions, not titles
+  or files.
 - Links in the app (such as "Support Quadra") open in your web browser.
 
 Questions: open an issue at [github.com/vulpini-br/quadra/issues](https://github.com/vulpini-br/quadra/issues).
@@ -26,7 +32,7 @@ Questions: open an issue at [github.com/vulpini-br/quadra/issues](https://github
 
 # Política de privacidade
 
-*Atualizada em 22 de outubro de 2026*
+*Atualizada em 19 de novembro de 2026*
 
 O Quadra não coleta, não guarda e não compartilha nenhum dado pessoal.
 
@@ -43,6 +49,11 @@ O Quadra não coleta, não guarda e não compartilha nenhum dado pessoal.
   recente (`api.github.com/repos/vulpini-br/quadra/releases`). Nada sobre você ou o seu
   computador é enviado, e dá para desligar isso nos Ajustes. Nesse pedido vale a
   [declaração de privacidade do GitHub](https://docs.github.com/site-policy/privacy-policies/github-general-privacy-statement).
-- Os links do app (como "Apoiar o Quadra") abrem no seu navegador.
+- **Versão da Mac App Store:** o macOS não deixa apps da App Store moverem as janelas dos
+  outros diretamente, então essa versão lê onde estão as janelas pela lista de janelas do macOS
+  (posição e tamanho, não títulos nem conteúdo) e as move pelo Atalho "Quadra", no app Atalhos da
+  Apple. O Atalho roda no seu Mac e recebe só o nome do app e a posição e o tamanho da janela a
+  mover. Os espaços de trabalho dessa versão guardam os apps e as posições, não títulos nem
+  arquivos.
 
 Dúvidas: abra uma issue em [github.com/vulpini-br/quadra/issues](https://github.com/vulpini-br/quadra/issues).

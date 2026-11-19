@@ -34,7 +34,11 @@ struct WorkspacesTab: View {
             if WindowMover.isTrusted() {
                 Text("Open the windows you want in the workspace and try again.")
             } else {
+                #if APP_STORE
+                Text("Quadra needs its shortcut to move the windows. Choose Set Up the Quadra Shortcut… in the Quadra menu.")
+                #else
                 Text("Quadra needs the Accessibility permission to see the windows. Choose Allow Accessibility… in the Quadra menu.")
+                #endif
             }
         }
     }
@@ -212,12 +216,23 @@ private struct WorkspaceEditor: View {
                         Button("Update with Current Windows", action: onUpdate)
                         Button("Restore Now", action: onRestore)
                     }
-                    Text("Apps and documents that are closed are opened again when you restore.")
+                    restoreHint
                         .font(.callout)
                         .foregroundStyle(.secondary)
                 }
             }
         }
+    }
+}
+
+extension WorkspaceEditor {
+    /// What restoring does, which differs in the App Store version.
+    var restoreHint: Text {
+        #if APP_STORE
+        Text("Apps that are closed are opened again when you restore. Each app's front window is arranged.")
+        #else
+        Text("Apps and documents that are closed are opened again when you restore.")
+        #endif
     }
 }
 

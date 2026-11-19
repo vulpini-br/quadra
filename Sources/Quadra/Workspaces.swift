@@ -77,6 +77,7 @@ enum WorkspaceMatcher {
     }
 }
 
+#if !APP_STORE
 /// Reads all open windows and puts them back where a workspace says.
 enum WorkspaceArranger {
     /// Standard windows of the other apps that have a Dock icon, front to back per app.
@@ -241,3 +242,4 @@ enum WorkspaceArranger {
         retry()
     }
 }
+#endif

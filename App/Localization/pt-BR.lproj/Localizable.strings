@@ -132,3 +132,15 @@
 "Writing" = "Escrita";
 "Report" = "Relatório";
 "Start Page" = "Página inicial";
+
+/* Versão da App Store: o Atalho do Quadra */
+"✓ Quadra shortcut ready" = "✓ Atalho do Quadra pronto";
+"Set Up the Quadra Shortcut…" = "Configurar o Atalho do Quadra…";
+"Quadra needs its shortcut to move the windows. Choose Set Up the Quadra Shortcut… in the Quadra menu." = "O Quadra precisa do Atalho dele para mover as janelas. Escolha Configurar o Atalho do Quadra… no menu do Quadra.";
+"Apps that are closed are opened again when you restore. Each app's front window is arranged." = "Os apps que estiverem fechados são abertos de novo ao restaurar. A janela da frente de cada app é organizada.";
+"Set up Quadra" = "Configure o Quadra";
+"On the App Store, macOS doesn't let apps move other apps' windows directly, so Quadra does it with the help of the Shortcuts app. Quadra only sends the position and size of the window to move, and nothing leaves your Mac." = "Na App Store, o macOS não deixa um app mover as janelas dos outros diretamente, então o Quadra faz isso com a ajuda do app Atalhos. O Quadra só envia a posição e o tamanho da janela a mover, e nada sai do seu Mac.";
+"Click Add Shortcut, then Add Shortcut again in the Shortcuts app" = "Clique em Adicionar Atalho e, no app Atalhos, em Adicionar Atalho de novo";
+"Click Allow Quadra, then OK when macOS asks" = "Clique em Permitir o Quadra e em OK quando o macOS perguntar";
+"Add Shortcut" = "Adicionar Atalho";
+"Allow Quadra" = "Permitir o Quadra";

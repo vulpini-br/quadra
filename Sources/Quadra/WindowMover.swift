@@ -1,3 +1,5 @@
+#if !APP_STORE
+// The App Store version uses StoreWindows.swift instead (no Accessibility API in the sandbox).
 import AppKit
 import ApplicationServices
 
@@ -101,3 +103,4 @@ enum WindowMover {
         if wasOn { AXUIElementSetAttributeValue(axApp, attribute, kCFBooleanTrue) }
     }
 }
+#endif

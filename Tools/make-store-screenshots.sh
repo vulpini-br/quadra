@@ -4,7 +4,8 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
-./build.sh --appstore > /dev/null
+# A test build: once the store certificates are on this Mac, the real build can't run here.
+QUADRA_PROVISIONING_PROFILE=/none ./build.sh --appstore > /dev/null
 # build.sh puts it in build/, or in ~/Library/Caches/Quadra when the project is on an exFAT drive.
 APP="build/AppStore/Quadra.app"
 [[ -d "$APP" ]] || APP="$HOME/Library/Caches/Quadra/AppStore/Quadra.app"

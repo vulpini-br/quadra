@@ -29,7 +29,7 @@ LAYOUTS WITH THEIR OWN SHORTCUTS
 
 WORKSPACES
 • Save where the windows of several apps are, and put them all back with one shortcut.
-• Closed apps and documents are opened for you, and minimized windows come back.
+• Closed apps are opened for you, and each app's window goes back to its place.
 
 MULTIPLE DISPLAYS AND ULTRAWIDE
 • Choose the display in the panel, or send a window to the next display with a shortcut.
@@ -40,10 +40,13 @@ YOUR WAY
 • Opens at login, lives in the menu bar.
 • In English and Brazilian Portuguese.
 
-PRIVATE
-Quadra collects no data and makes no network requests. To move windows it needs the Accessibility permission, which you turn on once in System Settings; it only reads the position, size and title of the windows it arranges. Layouts and workspaces are saved on your Mac.
+HOW IT MOVES WINDOWS
+macOS doesn't let App Store apps move other apps' windows directly, so Quadra does it through Apple's Shortcuts app. The first time, add the Quadra shortcut with one click and allow Quadra to use Shortcuts. The welcome window walks you through it.
 
-Quadra is open source, made by Vulpini. Buying it here supports its development.
+PRIVATE
+Quadra collects no data and makes no network requests. It reads where windows are from the macOS window list, and sends only the position and size of the window to move to the Quadra shortcut, which runs on your Mac. Layouts and workspaces are saved on your Mac.
+
+Quadra is free and open source, made by Vulpini.
 
 **Support URL**
 https://github.com/vulpini-br/quadra/issues
@@ -67,15 +70,15 @@ Data Not Collected
 
 Quadra is a menu bar app that moves and resizes the focused window to an area chosen on a grid, and can save and restore the windows of several apps at once (workspaces).
 
-It needs the Accessibility permission to move other apps' windows (this is its core function). On first launch, a window explains why and opens System Settings > Privacy & Security > Accessibility, where Quadra must be turned on. Quadra reads only the position, size and title of the windows it arranges (the focused one, or the open apps' windows when a workspace is saved or restored) and makes no network requests.
+Sandboxed apps can't use the Accessibility API on other apps, so Quadra moves windows through Apple's Shortcuts app. The app bundle includes a shortcut named "Quadra" (Contents/Resources/Quadra.shortcut) made only of the built-in Find Windows, Resize Window and Move Window actions. Quadra runs it in the background through Shortcuts Events, using the com.apple.security.scripting-targets entitlement for the com.apple.shortcuts.run access group, and passes only the app name and the target position and size. Window positions are read with CGWindowListCopyWindowInfo (no titles or contents). Quadra makes no network requests.
 
 How to test:
-1. Launch Quadra and click "Open System Settings" in the welcome window. Turn Quadra on in Accessibility.
-2. Open any app with a window (for example TextEdit).
-3. Press Control-Option-G, or click the grid icon in the menu bar. A grid panel appears.
-4. Drag across some cells: the TextEdit window moves to that area of the screen.
-5. Press Control-Option-Left Arrow: the window moves to the left half. Control-Option-Return: full screen.
-6. Right-click the menu bar icon and choose "Save Current Windows as Workspace…". Move the TextEdit window somewhere else, then choose the workspace in the same menu: the window goes back.
+1. Launch Quadra. In the welcome window click "Add Shortcut", then "Add Shortcut" again in the Shortcuts app.
+2. Back in Quadra, click "Allow Quadra", then "OK" when macOS asks to let Quadra control "Shortcuts Events". The welcome window then says "Quadra is ready".
+3. Open TextEdit with a document window and keep it in front.
+4. Press Control-Option-Left Arrow: the TextEdit window moves to the left half. Control-Option-Right Arrow: right half. Control-Option-C: center.
+5. Press Control-Option-G, or click the grid icon in the menu bar. A grid panel appears. Drag across some cells: the window moves to that area.
+6. Right-click the menu bar icon and choose "Save Current Windows as Workspace…". Move the TextEdit window, then choose the workspace in the same menu: the window goes back.
 7. Right-click the menu bar icon for Settings & Layouts, where layouts, workspaces and shortcuts can be edited.
 
 No account or login is needed.

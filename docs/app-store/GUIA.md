@@ -1,15 +1,18 @@
 # Como publicar o Quadra na Mac App Store
 
-> **Atenção (30/10/2026): a versão da App Store não funciona.** Todo app novo na Mac App Store precisa
-> rodar no sandbox, e a Apple não permite que apps no sandbox usem a Acessibilidade para ler e mover
-> as janelas de outros apps, nem com a permissão ligada à mão. Testado ao vivo: o Quadra da loja não
-> enxerga nenhuma janela, e o clique no ícone só abre o menu. (Os organizadores de janelas que estão
-> na loja entraram antes dessa regra.) Por isso o Quadra continua sendo distribuído pelo GitHub e pelo
-> Homebrew. O guia abaixo fica como registro, caso a Apple mude a regra.
+> **Como a versão da loja move as janelas.** Todo app novo na Mac App Store roda no sandbox, e no
+> sandbox o macOS não deixa um app usar a Acessibilidade nos outros apps. Por isso a versão da loja
+> lê onde estão as janelas pela lista de janelas do macOS e as move pelo Atalho **"Quadra"** do app
+> Atalhos, que ela roda em segundo plano pelo Shortcuts Events. O Atalho é gerado por
+> `Tools/make-shortcut.py`, assinado com `shortcuts sign` (precisa de internet e do iCloud ligado no
+> Mac) e vai dentro do app. Na primeira vez, a janela de boas-vindas pede para adicionar o Atalho e
+> autorizar o Quadra a usar o Atalhos. Testado em 19/11/2026: grade, layouts e espaços de trabalho
+> funcionam, cada movimento leva cerca de 0,3 segundo. Nessa versão, o espaço de trabalho guarda a
+> janela da frente de cada app (sem títulos nem documentos).
 
 O código já está pronto para a App Store. `./build.sh --appstore` gera uma versão própria:
 
-- roda no **sandbox**, o modo isolado que a Apple exige;
+- roda no **sandbox**, o modo isolado que a Apple exige, e move as janelas pelo Atalho do Quadra;
 - **não tem** o aviso de atualização, porque a App Store atualiza sozinha;
 - **não tem** o link "Apoiar o Quadra", porque a Apple não aceita links para pagamentos fora da loja.
 
@@ -17,14 +20,11 @@ Os textos da página estão em [`textos-en.md`](textos-en.md) e [`textos-pt-BR.m
 e as imagens em [`screenshots/`](screenshots). A política de privacidade é o
 [`PRIVACY.md`](../../PRIVACY.md) do repositório.
 
-## 0. Conta de desenvolvedor da empresa
+## 0. Conta de desenvolvedor
 
-O Quadra é publicado pela **Vulpini Contabilidade Ltda** (CNPJ 55.377.852/0001-94,
-[vulpini.com.br](https://vulpini.com.br)), inscrita como **organização** no
-[Apple Developer Program](https://developer.apple.com/programs/enroll/) (US$ 99 por ano).
-A Apple pede o número **D-U-N-S** da empresa ([consulta e pedido gratuitos](https://developer.apple.com/enroll/duns-lookup/)),
-um site e um e-mail com o domínio da empresa, e que quem faz a inscrição possa assinar pela empresa.
-Na App Store, quem aparece como vendedor é a Vulpini.
+A conta do Apple Developer Program é de **pessoa física**, em nome de Alan Michelon (equipe
+AE7E7GAZLV). A conversão para a Vulpini Contabilidade Ltda (D-U-N-S 648913307) foi pedida à Apple;
+quando sair, o nome do vendedor na loja passa a ser o da empresa, sem perder o app.
 
 ## 1. Identificador do app
 
@@ -73,30 +73,12 @@ Em [appstoreconnect.apple.com](https://appstoreconnect.apple.com) → **Apps** �
   `./Tools/make-store-screenshots.sh`. Capturas reais do app em uso também são bem-vindas.
 - **Privacidade do app:** "Dados não coletados". **URL da política:** a de `textos-en.md`.
 - **Categoria:** Produtividade. **Classificação etária:** responda "não" a tudo, o que dá 4+.
-- **Preço:** em **Preços e disponibilidade**, escolha **US$ 0,99**. A Apple calcula sozinha o
-  preço em reais e nas outras moedas (dá para escolher o Brasil como país base, se preferir
-  definir o preço em reais). Disponível em todos os países.
+- **Preço:** **Grátis**, em todos os países.
+- **Comerciante na União Europeia (DSA):** um app grátis de pessoa física pode ser declarado como
+  **não comerciante**; aí a loja não mostra endereço nem telefone.
 
 Regras da Apple a lembrar: os textos e as palavras-chave da loja **não podem citar outros apps ou
 marcas**, e o app não pode mandar baixar versões de fora da loja.
-
-## 6b. Vender: contrato, impostos e banco
-
-Um app pago só aparece na loja depois que a Vulpini tiver, no App Store Connect →
-**Negócios** (Business):
-
-1. o **Contrato de apps pagos** (Paid Apps Agreement) aceito pelo titular da conta;
-2. a **conta bancária** da Vulpini (pessoa jurídica) cadastrada, para receber os pagamentos;
-3. os **formulários de impostos**: o dos Estados Unidos para empresa estrangeira (W-8BEN-E,
-   preenchido na própria página) e o que mais a Apple pedir para o Brasil.
-
-Depois disso, inscreva a Vulpini no [App Store Small Business Program](https://developer.apple.com/app-store/small-business-program/):
-para quem fatura menos de 1 milhão de dólares por ano na loja, a comissão da Apple cai de 30% para
-**15%**. A Apple paga uma vez por mês, depois de descontar a comissão e os impostos de cada país.
-
-A versão do GitHub e do Homebrew continua grátis e de código aberto (licença MIT). Isso é
-permitido: quem compra na App Store paga pela comodidade (instalação e atualização pela loja) e
-apoia o projeto. Só não cite na loja que existe uma versão grátis fora dela.
 
 ## 7. Gerar o pacote
 
@@ -128,15 +110,16 @@ no App Store Connect.
 
 ## Testar a versão em sandbox antes de enviar
 
-1. Feche o Quadra normal: botão direito no ícone → **Sair do Quadra**.
-2. Gere e abra a versão de teste:
+1. Feche o Quadra normal: botão direito no ícone → **Sair do Quadra**. Os dois usam os mesmos
+   atalhos de teclado.
+2. Gere e abra uma versão de teste (sem os certificados da loja, ela sai assinada para este Mac):
    ```bash
-   ./build.sh --appstore
+   QUADRA_PROVISIONING_PROFILE=/nenhum ./build.sh --appstore
    open ~/Library/Caches/Quadra/AppStore/Quadra.app
    ```
    (se o projeto não estiver num disco exFAT, o caminho é `build/AppStore/Quadra.app`)
-3. Na tela de boas-vindas, clique em **Abrir Ajustes do Sistema** e ligue o novo **Quadra** em
-   Acessibilidade. Ele aparece como um app separado do Quadra normal.
-4. Teste: ⌃⌥G e arrastar na grade, ⌃⌥← para a metade esquerda, os Ajustes e layouts.
-5. Feche a versão de teste, abra de novo o Quadra normal, e remova a entrada de teste da lista de
-   Acessibilidade com **–**.
+3. Na tela de boas-vindas, clique em **Adicionar Atalho** (e em **Adicionar Atalho** no app
+   Atalhos), depois em **Permitir o Quadra** e em **OK**. A tela muda para "O Quadra está pronto".
+4. Teste: ⌃⌥G e arrastar na grade, ⌃⌥← e ⌃⌥→ para as metades, ⌃⌥C para o centro, e um espaço de
+   trabalho (salvar, tirar a janela do lugar, restaurar).
+5. Feche a versão de teste e abra de novo o Quadra normal.
